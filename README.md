@@ -1,20 +1,30 @@
-# Inventory Manager
+# 📦 Inventory Manager
 
-Inventory management app with React and Redux Toolkit.
+A simple warehouse management dashboard built with React.
 
-## Features
+## 🚀 Features
 
--   Add products
--   Delete products
--   Redux state management
+- Dashboard with statistics
+- Low stock products modal
+- Quick actions (add product / category)
+- Sidebar navigation
+- Responsive layout
 
-## Tech Stack
+## 🛠 Tech Stack
 
--   React
--   Redux Toolkit
--   Vite
+- React
+- React Router
+- Zustand (in progress)
+- CSS / SCSS
+- Lucide Icons
 
-## Run locally
+## 📸 Screenshots
 
+(coming soon)
+
+## 📦 Installation
+
+```bash
 npm install
 npm run dev
+```
