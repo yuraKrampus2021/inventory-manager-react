@@ -1,0 +1,11 @@
+.layout {
+   display: flex;
+   justify-content: flex-start;
+   min-height: 100vh;
+   color: #E5E7EB;
+   background: #1E293B;
+}
+
+.main {
+   width: 100%;
+}

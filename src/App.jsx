@@ -9,12 +9,13 @@ import LayOut from './components/LayOut/LayOut'
 const App = () => {
     return (
         <div className="app">
-            <LayOut />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="products" element={<Products />} />
-                <Route path="categories" element={<Categories />} />
-                <Route path="popular" element={<Popular />} />
+                <Route path="/" element={<LayOut />}>
+                    <Route index element={<Home />} />
+                    <Route path="products" element={<Products />} />
+                    <Route path="categories" element={<Categories />} />
+                    <Route path="popular" element={<Popular />} />
+                </Route>
             </Routes>
         </div>
     )
