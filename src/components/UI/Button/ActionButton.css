@@ -1,0 +1,13 @@
+.Action__btn {
+   display: flex;
+   gap: 5px;
+   padding: 8px 40px;
+   background-color: #2d3443;
+   border-radius: 15px;
+}
+
+.ico {
+   padding: 4px;
+   background-color: #64748b;
+   border-radius: 50%;
+}

@@ -1,16 +1,3 @@
-/* .main {
-   width: 100%;
-} */
-.home {
-   padding: 20px 15px 0;
-}
-
-.home__title {
-   font-size: 28px;
-   line-height: 150%;
-   margin-bottom: 40px;
-}
-
 .infoCards {
    display: flex;
    gap: 35px;
@@ -102,12 +89,4 @@ hr {
 .quickActions__wrapper {
    display: flex;
    gap: 30px
-}
-
-.quickActions__btn {
-   display: flex;
-   gap: 5px;
-   padding: 8px 40px;
-   background-color: #2d3443;
-   border-radius: 15px;
 }

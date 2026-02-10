@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { AlertTriangle } from 'lucide-react'
 import './Home.css'
+import ActionButton from '../UI/Button/ActionButton'
+import PageTitle from '../UI/Title/PageTitle'
 
 const Home = () => {
     const [lowStockActive, setLowStockActive] = useState(false)
@@ -20,7 +22,8 @@ const Home = () => {
 
     return (
         <div className="home">
-            <h3 className="home__title">Welcome to MyWarehouse Assistant</h3>
+            <PageTitle>Welcome to MyWarehouse Assistant</PageTitle>
+            {/* <h3 className="home__title"></h3> */}
 
             <div className="infoCards">
                 {statsCards.map((card, id) => (
@@ -68,31 +71,19 @@ const Home = () => {
                 <h4 className="quickActions__title">Quick Actions</h4>
                 <hr />
                 <div className="quickActions__wrapper">
-                    <button className="quickActions__btn">
+                    <ActionButton>
                         <span>
-                            <Plus
-                                style={{
-                                    padding: '4px',
-                                    backgroundColor: 'grey',
-                                    borderRadius: '50%',
-                                }}
-                            />
+                            <Plus className="ico" />
                         </span>{' '}
                         <span>Add Product</span>
-                    </button>
+                    </ActionButton>
 
-                    <button className="quickActions__btn">
+                    <ActionButton>
                         <span>
-                            <Plus
-                                style={{
-                                    padding: '4px',
-                                    backgroundColor: 'grey',
-                                    borderRadius: '50%',
-                                }}
-                            />
+                            <Plus className="ico" />
                         </span>{' '}
                         <span>Add Category</span>
-                    </button>
+                    </ActionButton>
                 </div>
             </div>
         </div>
