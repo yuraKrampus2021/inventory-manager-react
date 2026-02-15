@@ -1,7 +1,11 @@
 import './ActionButton.css'
 
-const ActionButton = ({ children }) => {
-    return <button className="Action__btn">{children}</button>
+const ActionButton = ({ children, onClick }) => {
+    return (
+        <button onClick={onClick} className="Action__btn">
+            {children}
+        </button>
+    )
 }
 
 export default ActionButton

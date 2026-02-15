@@ -58,38 +58,58 @@ const productsMock = [
 ]
 
 const filterProducts = (searchText, listofProducts, lowStock) => {
-    let result = listofProducts
+    return listofProducts.filter((product) => {
+        const matchesStock = lowStock ? product.qty <= 5 : true
 
-    if (!searchText && !lowStock) {
-        return result
-    }
+        const matchesSearch = searchText
+            ? product.name.toLowerCase().includes(searchText.toLowerCase())
+            : true
 
-    if (searchText && lowStock) {
-        result = listofProducts.filter(({ qty }) => qty <= 5)
-
-        result = result.filter(({ name }) =>
-            name.toLowerCase().includes(searchText.toLowerCase())
-        )
-    }
-
-    if (lowStock && !searchText) {
-        result = listofProducts.filter(({ qty }) => qty <= 5)
-    }
-
-    if (searchText && !lowStock) {
-        result = listofProducts.filter(({ name }) =>
-            name.toLowerCase().includes(searchText.toLowerCase())
-        )
-    }
-
-    return result
+        return matchesStock && matchesSearch
+    })
 }
 
 const Products = () => {
     const [lowStock, setLowStock] = useState(false)
     const [search, setSearch] = useState('')
+    const [modalAdd, setModalAdd] = useState(false)
+    const [updateList, setUpdateList] = useState(productsMock)
+    const [formData, setFormData] = useState({
+        id: 111111,
+        name: '',
+        category: '',
+        qty: 0,
+        price: 0,
+    })
 
-    const filteredProducts = filterProducts(search, productsMock, lowStock)
+    const filteredProducts = filterProducts(search, updateList, lowStock)
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+    }
+
+    const saveHandler = (e) => {
+        e.preventDefault()
+        for (let key in formData) {
+            if (!formData[key]) return
+        }
+        setFormData((prev) => ({ ...prev, id: Date.now() }))
+        setUpdateList((prev) => [...prev, formData])
+        setFormData({
+            id: Date.now(),
+            name: '',
+            category: '',
+            qty: 0,
+            price: 0,
+        })
+
+        console.log(updateList)
+    }
 
     return (
         <div className="products">
@@ -114,13 +134,76 @@ const Products = () => {
                     />
                 </label>
 
-                <ActionButton className="products__btn">
+                <ActionButton
+                    onClick={() => setModalAdd(!modalAdd)}
+                    className="products__btn"
+                >
                     <span>
                         <Plus className="ico" />
                     </span>{' '}
                     <span>Add Products</span>
                 </ActionButton>
             </div>
+
+            {modalAdd && (
+                <div className="products__backdrop">
+                    <div className="products__form">
+                        <span onClick={() => setModalAdd(false)}>close X</span>
+                        <form action="">
+                            <label htmlFor="name-product">
+                                Name
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name-product"
+                                    onChange={handleChange}
+                                    value={formData.name}
+                                    placeholder="Phone"
+                                />
+                            </label>
+
+                            <label htmlFor="category-product">
+                                Category
+                                <input
+                                    type="text"
+                                    name="category"
+                                    id="category-product"
+                                    onChange={handleChange}
+                                    value={formData.category}
+                                    placeholder="Electronics"
+                                />
+                            </label>
+
+                            <label htmlFor="qty-product">
+                                Qty
+                                <input
+                                    type="number"
+                                    name="qty"
+                                    id="qty-product"
+                                    onChange={handleChange}
+                                    value={formData.qty}
+                                    placeholder="5"
+                                />
+                            </label>
+                            <label htmlFor="price-product">
+                                Price
+                                <input
+                                    type="number"
+                                    name="price"
+                                    id="price-product"
+                                    onChange={handleChange}
+                                    value={formData.price}
+                                    placeholder="300"
+                                />
+                            </label>
+
+                            <button onClick={(e) => saveHandler(e)}>
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             <h3 className="products__list-title">List of products</h3>
             <div className="products__list-label">
@@ -129,6 +212,7 @@ const Products = () => {
                 <span>Qty</span>
                 <span>Price</span>
             </div>
+
             {filteredProducts.map((item) => (
                 <div key={item.id} className="products__list-item">
                     <span>{item.name}</span>

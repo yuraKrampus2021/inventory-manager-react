@@ -1,3 +1,7 @@
+.products {
+   position: relative;
+}
+
 .products__actions {
    display: flex;
    gap: 20px;
@@ -7,8 +11,77 @@
 .products__lowStock {
    display: flex;
    align-items: center;
+   padding: 5px;
    gap: 5px;
+   cursor: pointer;
+   border: 1px solid transparent;
+   border-radius: 9px;
+   transition: all .3s;
 }
+
+.products__lowStock:hover {
+   color: #6b84a7;
+   border: 1px solid #6b84a7;
+
+}
+
+.products__backdrop {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgb(30, 29, 29, 0.6);
+   z-index: 0;
+
+}
+
+.products__form {
+   padding: 15px;
+   position: fixed;
+   right: 30%;
+   top: 20%;
+   background-color: #d1dbe8;
+   color: #243145;
+   width: 450px;
+   height: 400px;
+   border-radius: 15px;
+   box-shadow: 0px 10px 50px #1d1c1c;
+   z-index: 100;
+
+}
+
+.products__form form {
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+
+.products__form label {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: start;
+}
+
+.products__form input {
+   border-radius: 7px;
+   padding: 5px;
+   color: #fbfdff;
+   background-color: #24314545;
+   border: 1px solid #24314545;
+   box-shadow: inset 0px 0px 8px rgb(75, 75, 75);
+}
+
+.products__form span {
+   cursor: pointer;
+   position: absolute;
+   right: 10px;
+   top: 10px;
+}
+
 
 .products__list-title {
    margin-bottom: 25px;
