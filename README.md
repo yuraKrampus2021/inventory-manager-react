@@ -24,6 +24,8 @@ A simple warehouse management dashboard built with React.
 
 ## 📦 Installation
 
+[DEMO] 'https://yurakrampus2021.github.io/inventory-manager-react/'
+
 ```bash
 npm install
 npm run dev
