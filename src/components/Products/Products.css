@@ -89,7 +89,7 @@
 
 .products__list-item, .products__list-label {
    display: grid;
-   grid-template-columns: repeat(4, 1fr);
+   grid-template-columns: repeat(6, 1fr);
    gap: 3px;
    align-items: center;
    margin-bottom: 8px;
@@ -108,6 +108,16 @@
 .products__list-label {
    border: 2px solid #566782;
    padding: 5px;
+}
+
+.products__list-item span button {
+   display: inline-block;
+   /* background-color: red; */
+   width: 100%;
+   height: 100%;
+   border: none;
+   margin: 0;
+   padding: 0;
 }
 
 .products__list-item span:nth-child(even) {

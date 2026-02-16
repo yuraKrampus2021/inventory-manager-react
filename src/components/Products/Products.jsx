@@ -75,7 +75,7 @@ const Products = () => {
     const [modalAdd, setModalAdd] = useState(false)
     const [updateList, setUpdateList] = useState(productsMock)
     const [formData, setFormData] = useState({
-        id: 111111,
+        id: 0,
         name: '',
         category: '',
         qty: 0,
@@ -89,26 +89,50 @@ const Products = () => {
 
         setFormData((prevState) => ({
             ...prevState,
-            [name]: value,
+            [name]: name === 'qty' || name === 'price' ? +value : value,
         }))
     }
 
     const saveHandler = (e) => {
         e.preventDefault()
+
         for (let key in formData) {
-            if (!formData[key]) return
+            if (!formData[key] && key !== 'id') return
         }
-        setFormData((prev) => ({ ...prev, id: Date.now() }))
-        setUpdateList((prev) => [...prev, formData])
+
+        const isExisting = updateList.some(
+            (prod) => prod.id === formData.id && prod.id !== 0
+        )
+
+        if (isExisting) {
+            setUpdateList((prev) =>
+                prev.map((prod) =>
+                    prod.id === formData.id ? { ...formData } : prod
+                )
+            )
+        } else {
+            const newProduct = { ...formData, id: Date.now() }
+            setUpdateList((prev) => [...prev, newProduct])
+        }
+
         setFormData({
-            id: Date.now(),
+            id: 0,
             name: '',
             category: '',
             qty: 0,
             price: 0,
         })
+    }
 
-        console.log(updateList)
+    const deleteProduct = (id) => {
+        setUpdateList((prevList) =>
+            prevList.filter((product) => product.id !== id)
+        )
+    }
+
+    const corectProduct = (item) => {
+        setModalAdd(true)
+        setFormData({ ...item })
     }
 
     return (
@@ -119,7 +143,6 @@ const Products = () => {
                     className="products__search"
                     onChange={(e) => {
                         setSearch(e.target.value)
-                        console.log(search)
                     }}
                     value={search}
                     ico="&#8981;"
@@ -211,8 +234,11 @@ const Products = () => {
                 <span>Category</span>
                 <span>Qty</span>
                 <span>Price</span>
+                <span>Delete</span>
+                <span>Corect</span>
             </div>
 
+            {!filteredProducts.length && <h5>Products list is empty</h5>}
             {filteredProducts.map((item) => (
                 <div key={item.id} className="products__list-item">
                     <span>{item.name}</span>
@@ -221,6 +247,16 @@ const Products = () => {
                         {item.qty}
                     </span>
                     <span>{item.price}</span>
+                    <span>
+                        <button onClick={() => deleteProduct(item.id)}>
+                            Delete
+                        </button>
+                    </span>
+                    <span>
+                        <button onClick={() => corectProduct({ ...item })}>
+                            Corect
+                        </button>
+                    </span>
                 </div>
             ))}
         </div>
