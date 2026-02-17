@@ -1,0 +1,51 @@
+export const productsMock = [
+    {
+        id: 1,
+        name: 'Wireless Mouse',
+        category: 'Electronics',
+        qty: 12,
+        price: 20,
+    },
+    {
+        id: 2,
+        name: 'USB-C Cable',
+        category: 'Electronics',
+        qty: 3,
+        price: 8,
+    },
+    {
+        id: 3,
+        name: 'Mechanical Keyboard',
+        category: 'Electronics',
+        qty: 7,
+        price: 75,
+    },
+    {
+        id: 4,
+        name: "27'' Monitor",
+        category: 'Electronics',
+        qty: 5,
+        price: 230,
+    },
+    {
+        id: 5,
+        name: 'Office Chair',
+        category: 'Furniture',
+        qty: 2,
+        price: 180,
+    },
+    {
+        id: 6,
+        name: 'Notebook A4',
+        category: 'Stationery',
+        qty: 40,
+        price: 3,
+    },
+    {
+        id: 7,
+        name: 'Pen Set',
+        category: 'Stationery',
+        qty: 25,
+        price: 6,
+    },
+]

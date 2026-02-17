@@ -1,61 +1,11 @@
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
+import { productStore } from '../../store/productStore'
 import ActionButton from '../UI/Button/ActionButton'
 import PageTitle from '../UI/Title/PageTitle'
 import InputAction from '../UI/Input/InputAction'
-import './Products.css'
 
-const productsMock = [
-    {
-        id: 1,
-        name: 'Wireless Mouse',
-        category: 'Electronics',
-        qty: 12,
-        price: 20,
-    },
-    {
-        id: 2,
-        name: 'USB-C Cable',
-        category: 'Electronics',
-        qty: 3,
-        price: 8,
-    },
-    {
-        id: 3,
-        name: 'Mechanical Keyboard',
-        category: 'Electronics',
-        qty: 7,
-        price: 75,
-    },
-    {
-        id: 4,
-        name: "27'' Monitor",
-        category: 'Electronics',
-        qty: 5,
-        price: 230,
-    },
-    {
-        id: 5,
-        name: 'Office Chair',
-        category: 'Furniture',
-        qty: 2,
-        price: 180,
-    },
-    {
-        id: 6,
-        name: 'Notebook A4',
-        category: 'Stationery',
-        qty: 40,
-        price: 3,
-    },
-    {
-        id: 7,
-        name: 'Pen Set',
-        category: 'Stationery',
-        qty: 25,
-        price: 6,
-    },
-]
+import './Products.css'
 
 const filterProducts = (searchText, listofProducts, lowStock) => {
     return listofProducts.filter((product) => {
@@ -70,10 +20,19 @@ const filterProducts = (searchText, listofProducts, lowStock) => {
 }
 
 const Products = () => {
+    const { products, addProduct, updateProduct, deleteProduct } =
+        productStore((state) => ({
+            products: state.products,
+            addProduct: state.addProduct,
+            updateProduct: state.updateProduct,
+            deleteProduct: state.deleteProduct,
+            
+
+        }))
+
     const [lowStock, setLowStock] = useState(false)
     const [search, setSearch] = useState('')
     const [modalAdd, setModalAdd] = useState(false)
-    const [updateList, setUpdateList] = useState(productsMock)
     const [formData, setFormData] = useState({
         id: 0,
         name: '',
@@ -82,7 +41,7 @@ const Products = () => {
         price: 0,
     })
 
-    const filteredProducts = filterProducts(search, updateList, lowStock)
+    const filteredProducts = filterProducts(search, products, lowStock)
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -100,20 +59,13 @@ const Products = () => {
             if (!formData[key] && key !== 'id') return
         }
 
-        const isExisting = updateList.some(
+        const isExisting = products.some(
             (prod) => prod.id === formData.id && prod.id !== 0
         )
 
-        if (isExisting) {
-            setUpdateList((prev) =>
-                prev.map((prod) =>
-                    prod.id === formData.id ? { ...formData } : prod
-                )
-            )
-        } else {
-            const newProduct = { ...formData, id: Date.now() }
-            setUpdateList((prev) => [...prev, newProduct])
-        }
+        if (isExisting) updateProduct(formData)
+
+        if (!isExisting) addProduct(formData)
 
         setFormData({
             id: 0,
@@ -124,13 +76,7 @@ const Products = () => {
         })
     }
 
-    const deleteProduct = (id) => {
-        setUpdateList((prevList) =>
-            prevList.filter((product) => product.id !== id)
-        )
-    }
-
-    const corectProduct = (item) => {
+    const editProduct = (item) => {
         setModalAdd(true)
         setFormData({ ...item })
     }
@@ -158,7 +104,7 @@ const Products = () => {
                 </label>
 
                 <ActionButton
-                    onClick={() => setModalAdd(!modalAdd)}
+                    onClick={() => setModalAdd(true)}
                     className="products__btn"
                 >
                     <span>
@@ -179,7 +125,7 @@ const Products = () => {
                                     type="text"
                                     name="name"
                                     id="name-product"
-                                    onChange={handleChange}
+                                    onChange={(e) => handleChange(e)}
                                     value={formData.name}
                                     placeholder="Phone"
                                 />
@@ -191,7 +137,7 @@ const Products = () => {
                                     type="text"
                                     name="category"
                                     id="category-product"
-                                    onChange={handleChange}
+                                    onChange={(e) => handleChange(e)}
                                     value={formData.category}
                                     placeholder="Electronics"
                                 />
@@ -203,7 +149,7 @@ const Products = () => {
                                     type="number"
                                     name="qty"
                                     id="qty-product"
-                                    onChange={handleChange}
+                                    onChange={(e) => handleChange(e)}
                                     value={formData.qty}
                                     placeholder="5"
                                 />
@@ -214,7 +160,7 @@ const Products = () => {
                                     type="number"
                                     name="price"
                                     id="price-product"
-                                    onChange={handleChange}
+                                    onChange={(e) => handleChange(e)}
                                     value={formData.price}
                                     placeholder="300"
                                 />
@@ -253,7 +199,7 @@ const Products = () => {
                         </button>
                     </span>
                     <span>
-                        <button onClick={() => corectProduct({ ...item })}>
+                        <button onClick={() => editProduct({ ...item })}>
                             Corect
                         </button>
                     </span>
