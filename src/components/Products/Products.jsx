@@ -21,14 +21,7 @@ const filterProducts = (searchText, listofProducts, lowStock) => {
 
 const Products = () => {
     const { products, addProduct, updateProduct, deleteProduct } =
-        productStore((state) => ({
-            products: state.products,
-            addProduct: state.addProduct,
-            updateProduct: state.updateProduct,
-            deleteProduct: state.deleteProduct,
-            
-
-        }))
+        productStore()
 
     const [lowStock, setLowStock] = useState(false)
     const [search, setSearch] = useState('')
