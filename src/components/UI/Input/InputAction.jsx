@@ -1,6 +1,6 @@
 import './InputAction.css'
 
-const InputAction = ({ onChange, value, ico, label }) => {
+const InputAction = ({ onChange, value, ico, label, className }) => {
     return (
         <input
             type="text"
@@ -8,6 +8,7 @@ const InputAction = ({ onChange, value, ico, label }) => {
             onChange={onChange}
             value={value}
             placeholder={`${ico} Search Product`}
+            className={className}
         />
     )
 }

@@ -96,10 +96,7 @@ const Products = () => {
                     />
                 </label>
 
-                <ActionButton
-                    onClick={() => setModalAdd(true)}
-                    className="products__btn"
-                >
+                <ActionButton onClick={() => setModalAdd(true)}>
                     <span>
                         <Plus className="ico" />
                     </span>{' '}
@@ -168,36 +165,39 @@ const Products = () => {
             )}
 
             <h3 className="products__list-title">List of products</h3>
-            <div className="products__list-label">
-                <span>Name</span>
-                <span>Category</span>
-                <span>Qty</span>
-                <span>Price</span>
-                <span>Delete</span>
-                <span>Corect</span>
-            </div>
 
-            {!filteredProducts.length && <h5>Products list is empty</h5>}
-            {filteredProducts.map((item) => (
-                <div key={item.id} className="products__list-item">
-                    <span>{item.name}</span>
-                    <span>{item.category}</span>
-                    <span className={item.qty <= 5 ? 'low' : ''}>
-                        {item.qty}
-                    </span>
-                    <span>{item.price}</span>
-                    <span>
-                        <button onClick={() => deleteProduct(item.id)}>
-                            Delete
-                        </button>
-                    </span>
-                    <span>
-                        <button onClick={() => editProduct({ ...item })}>
-                            Corect
-                        </button>
-                    </span>
+            <div className="products__list-wrrap">
+                <div className="products__list-label">
+                    <span>Name</span>
+                    <span>Category</span>
+                    <span>Qty</span>
+                    <span>Price</span>
+                    <span>Delete</span>
+                    <span>Corect</span>
                 </div>
-            ))}
+
+                {!filteredProducts.length && <h5>Products list is empty</h5>}
+                {filteredProducts.map((item) => (
+                    <div key={item.id} className="products__list-item">
+                        <span>{item.name}</span>
+                        <span>{item.category}</span>
+                        <span className={item.qty <= 5 ? 'low' : ''}>
+                            {item.qty}
+                        </span>
+                        <span>{item.price}</span>
+                        <span>
+                            <button onClick={() => deleteProduct(item.id)}>
+                                Delete
+                            </button>
+                        </span>
+                        <span>
+                            <button onClick={() => editProduct({ ...item })}>
+                                Corect
+                            </button>
+                        </span>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

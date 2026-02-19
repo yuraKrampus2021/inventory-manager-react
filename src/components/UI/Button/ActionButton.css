@@ -1,6 +1,8 @@
 .Action__btn {
    display: flex;
-   gap: 5px;
+   justify-content: center;
+   align-items: center;
+   gap: 10px;
    padding: 8px 40px;
    background-color: #2d3443;
    border-radius: 15px;
